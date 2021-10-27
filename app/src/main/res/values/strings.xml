@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">KursApplication</string>
+    <string name="edMail">Email</string>
+    <string name="edPassword">Hasło</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnRegister">Rejestracja</string>
+    <string name="hiEmail">Podaj email</string>
+    <string name="hiPassword">Podaj hasło</string>
+    <string name="edFirstName">Imię</string>
+    <string name="edLastName">Nazwisko</string>
+    <string name="err_empty_filed">Pole nie może być puste</string>
+    <string name="err_is_not_email">to nie jest email</string>
+    <string name="createAccount">Utwórz konto</string>
+    <string name="titleAdditional">Dodatkowe</string>
+</resources>
