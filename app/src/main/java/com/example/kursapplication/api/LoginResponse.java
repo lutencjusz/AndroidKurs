@@ -1,5 +1,7 @@
 package com.example.kursapplication.api;
 
+import androidx.annotation.NonNull;
+
 public class LoginResponse {
 
     public String username;
@@ -9,6 +11,7 @@ public class LoginResponse {
     public String LastName;
     public String sessionToken;
 
+    @NonNull
     @Override
     public String toString() {
         return "LoginResponse{" +
