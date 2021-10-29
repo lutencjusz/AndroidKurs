@@ -75,8 +75,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(String email, String password) {
 
-        Dotenv dotenv = (Dotenv) Dotenv.configure().directory("./assets").filename("env").systemProperties().load();
-        
+        Dotenv dotenv = (Dotenv) Dotenv.configure().directory("./assets").filename("env").load();
+
         String id = dotenv.get("ID");
         String key = dotenv.get("REST-API-KEY");
 
