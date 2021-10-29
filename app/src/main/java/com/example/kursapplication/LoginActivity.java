@@ -1,9 +1,7 @@
 package com.example.kursapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.TooltipCompat;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +9,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 import com.example.kursapplication.api.LoginResponse;
 import com.example.kursapplication.api.PodcastApi;
 import java.io.IOException;
@@ -19,6 +16,7 @@ import java.lang.annotation.Annotation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.cdimascio.dotenv.Dotenv;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -76,6 +74,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(String email, String password) {
+
+        Dotenv dotenv = (Dotenv) Dotenv.configure().directory("./assets").filename("env").systemProperties().load();
+        
+        String id = dotenv.get("ID");
+        String key = dotenv.get("REST-API-KEY");
+
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -87,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         builder.client(client);
         Retrofit retrofit = builder.build();
         PodcastApi podcastApi = retrofit.create(PodcastApi.class);
-        Call<LoginResponse> call = podcastApi.getLogin(email, password);
+        Call<LoginResponse> call = podcastApi.getLogin(email, password, id, key);
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
