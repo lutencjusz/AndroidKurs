@@ -13,4 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/src/main/assets/env
 
