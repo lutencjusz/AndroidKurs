@@ -35,4 +35,10 @@ public class UserStorage {
     public boolean hasToLogin() {
         return sharedPreferences.getString(SESSION_TOKEN, "").isEmpty();
     }
+
+    public void logout() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
 }
