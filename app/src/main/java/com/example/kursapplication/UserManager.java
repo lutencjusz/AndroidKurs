@@ -1,8 +1,6 @@
 package com.example.kursapplication;
 
-import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import com.example.kursapplication.api.LoginResponse;
 import com.example.kursapplication.api.PodcastApi;
