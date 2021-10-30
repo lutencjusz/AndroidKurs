@@ -1,9 +1,11 @@
 package com.example.kursapplication;
 
+import static android.content.ContentValues.TAG;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -29,7 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        userManager = new UserManager();
+        userManager = ((App) getApplication()).getUserManager(); // rzutowanie na naszą App w celu wykorzystania zapisanego tam userManagera
+        Log.d(TAG, "Obecny UserManager" + userManager);
     }
 
     @Override
