@@ -1,52 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingTop="16dp"
-    android:paddingRight="16dp"
-    android:paddingBottom="16dp"
-    tools:context=".screens.login.LoginActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        tools:context=".screens.login.LoginActivity">
 
-        <EditText
-            android:id="@+id/edMail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="@string/hiEmail"
-            android:ems="10"
-            android:hint="@string/hiEmail"
-            android:importantForAutofill="yes"
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp" />
+        <ImageView
+            android:layout_width="112dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/logo" />
 
-        <EditText
-            android:id="@+id/edPassword"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edMailTextInputLayout"
+            app:errorEnabled="true"
+            android:textColorHint="@color/login_text_color_selector"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="@string/hiPassword"
-            android:ems="10"
-            android:hint="@string/edPassword"
-            android:inputType="textPassword"
-            android:minHeight="48dp" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edMail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/hiEmail"
+                android:drawableStart="@drawable/ic_email_selector"
+                android:drawableLeft="@drawable/ic_email_selector"
+                android:ems="10"
+                android:hint="@string/hiEmail"
+                android:importantForAutofill="yes"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/login_text_color_selector"
+                android:minHeight="48dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edPasswordTextInputLayout"
+            app:errorEnabled="true"
+            android:textColorHint="@color/login_text_color_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/hiPassword"
+                android:drawableStart="@drawable/ic_password_selector"
+                android:drawableLeft="@drawable/ic_password_selector"
+                android:ems="10"
+                android:hint="@string/edPassword"
+                android:inputType="textPassword"
+                android:textColor="@color/login_text_color_selector"
+                android:minHeight="48dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btnLogin"
-            android:onClick="loginClick"/>
+            android:onClick="loginClick"
+            android:text="@string/btnLogin" />
 
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btnRegister"
-            android:onClick="registerClick"/>
+            android:onClick="registerClick"
+            android:text="@string/btnRegister" />
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

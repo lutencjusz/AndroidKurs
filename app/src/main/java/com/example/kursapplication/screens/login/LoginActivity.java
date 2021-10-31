@@ -15,6 +15,7 @@ import com.example.kursapplication.App;
 import com.example.kursapplication.MainActivity;
 import com.example.kursapplication.R;
 import com.example.kursapplication.screens.register.RegisterActivity;
+import com.google.android.material.textfield.TextInputLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,6 +28,12 @@ public class LoginActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.edPassword)
     EditText edPassword;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.edMailTextInputLayout)
+    TextInputLayout edMailTextInputLayout;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.edPasswordTextInputLayout)
+    TextInputLayout edPasswordTextInputLayout;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.btnLogin)
     Button btnLogin;
@@ -69,15 +76,19 @@ public class LoginActivity extends AppCompatActivity {
         String email = edMail.getText().toString();
         String password = edPassword.getText().toString();
         if (email.isEmpty()) {
-            edMail.setError(getString(R.string.err_empty_filed));
+            edMailTextInputLayout.setError(getString(R.string.err_empty_filed));
             hasErr = true;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edMail.setError(getString(R.string.err_is_not_email));
+            edMailTextInputLayout.setError(getString(R.string.err_is_not_email));
             hasErr = true;
+        } else {
+            edMailTextInputLayout.setError(null);
         }
         if (password.isEmpty()) {
-            edPassword.setError(getString(R.string.err_empty_filed));
+            edPasswordTextInputLayout.setError(getString(R.string.err_empty_filed));
             hasErr = true;
+        } else {
+            edPasswordTextInputLayout.setError(null);
         }
         if (!hasErr) {
             loginManager.login(email, password, ((App) getApplication()).getIdDB(), ((App) getApplication()).getKeyDB());
