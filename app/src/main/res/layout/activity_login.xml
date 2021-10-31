@@ -40,12 +40,11 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/hiEmail"
                 android:drawableStart="@drawable/ic_email_selector"
-                android:drawableLeft="@drawable/ic_email_selector"
                 android:ems="10"
                 android:hint="@string/hiEmail"
-                android:importantForAutofill="yes"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/login_text_color_selector"
+                android:background="@color/material_on_surface_stroke"
                 android:minHeight="48dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -63,11 +62,11 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/hiPassword"
                 android:drawableStart="@drawable/ic_password_selector"
-                android:drawableLeft="@drawable/ic_password_selector"
                 android:ems="10"
-                android:hint="@string/edPassword"
+                android:hint="@string/hiPassword"
                 android:inputType="textPassword"
                 android:textColor="@color/login_text_color_selector"
+                android:background="@color/material_on_surface_stroke"
                 android:minHeight="48dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
