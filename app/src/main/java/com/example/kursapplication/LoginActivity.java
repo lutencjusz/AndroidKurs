@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -22,6 +23,9 @@ public class LoginActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.edPassword)
     EditText edPassword;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.btnLogin)
+    Button btnLogin;
 
     private UserManager userManager;
 
@@ -85,5 +89,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public void showError(String error) {
         Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showProgress(boolean progress) {
+        btnLogin.setEnabled(!progress);
     }
 }

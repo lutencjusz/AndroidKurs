@@ -21,6 +21,7 @@ public class UserManager {
 
     private LoginActivity loginActivity;
     private final UserStorage userStorage;
+    private Call<LoginResponse> loginCall;
 
     public UserManager(UserStorage userStorage) {
         this.userStorage = userStorage;
@@ -53,45 +54,53 @@ public class UserManager {
         builder.client(client);
         Retrofit retrofit = builder.build();
         PodcastApi podcastApi = retrofit.create(PodcastApi.class);
-        Call<LoginResponse> call = podcastApi.getLogin(email, password, id, key);
-        call.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
-                if (response.isSuccessful()) {
-                    LoginResponse body = response.body();
-                    assert body != null;
-                    userStorage.login(body);
-                    Log.d(LoginActivity.class.getSimpleName(), "Odpowiedź: " + body);
-                    if (loginActivity != null) {
-                        loginActivity.loginSuccess();
-                    }
-                } else {
-                    try {
-                        ResponseBody responseBody = response.errorBody();
-                        Converter<ResponseBody, ErrorResponse> converter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[]{});
-                        assert responseBody != null;
-                        ErrorResponse errorResponse = converter.convert(responseBody);
-                        assert errorResponse != null;
+        if (loginCall == null) { //zabezpiecznie przed podwójnym logowaniem
+            loginCall = podcastApi.getLogin(email, password, id, key);
+            updateProgress();
+            loginCall.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
+                    loginCall=null;
+                    updateProgress();
+                    if (response.isSuccessful()) {
+                        LoginResponse body = response.body();
+                        assert body != null;
+                        userStorage.login(body);
+                        Log.d(LoginActivity.class.getSimpleName(), "Odpowiedź: " + body);
                         if (loginActivity != null) {
-                            loginActivity.showError("Błąd: " + errorResponse.error);
+                            loginActivity.loginSuccess();
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } else {
+                        try {
+                            ResponseBody responseBody = response.errorBody();
+                            Converter<ResponseBody, ErrorResponse> converter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[]{});
+                            assert responseBody != null;
+                            ErrorResponse errorResponse = converter.convert(responseBody);
+                            assert errorResponse != null;
+                            if (loginActivity != null) {
+                                loginActivity.showError("Błąd: " + errorResponse.error);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
-
-
                 }
 
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
-                if (loginActivity != null) {
-                    loginActivity.showError("Błąd: " + t.getLocalizedMessage());
+                @Override
+                public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
+                    loginCall = null;
+                    updateProgress();
+                    if (loginActivity != null) {
+                        loginActivity.showError("Błąd: " + t.getLocalizedMessage());
+                    }
                 }
+            });
+        }
+    }
 
-            }
-        });
-
+    private void updateProgress() {
+        if (loginActivity != null){
+            loginActivity.showProgress(loginCall != null);
+        }
     }
 }
