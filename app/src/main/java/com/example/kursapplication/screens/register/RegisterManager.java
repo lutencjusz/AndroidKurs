@@ -1,5 +1,6 @@
 package com.example.kursapplication.screens.register;
 
+import androidx.annotation.NonNull;
 import com.example.kursapplication.ErrorResponse;
 import com.example.kursapplication.UserStorage;
 import com.example.kursapplication.api.PodcastApi;
@@ -7,7 +8,6 @@ import com.example.kursapplication.api.RegisterRequest;
 import com.example.kursapplication.api.UserResponse;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import io.github.cdimascio.dotenv.Dotenv;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,14 +29,18 @@ public class RegisterManager {
         this.retrofit = retrofit;
     }
 
-    public void register(String firstName, String lastName, String email, String password) {
+    public void onAttach(RegisterActivity registerActivity) {
+        this.registerActivity = registerActivity;
+        updateProgress();
+    }
 
-        Dotenv dotenv = Dotenv.configure().directory("./assets").filename("env").load();
+    public void onStop() {
+        this.registerActivity = null;
+    }
 
-        String id = dotenv.get("ID");
-        String key = dotenv.get("REST-API-KEY");
+    public void register(String firstName, String lastName, String email, String password, String idDB, String keyDB) {
 
-        RegisterRequest registerRequest = new RegisterRequest();
+        final RegisterRequest registerRequest = new RegisterRequest();
 
         registerRequest.FirstName = firstName;
         registerRequest.LastName = lastName;
@@ -45,12 +49,16 @@ public class RegisterManager {
         registerRequest.password = password;
 
         if (userResponseCall == null) {
-            podcastApi.postRegister(registerRequest, id, key);
+            userResponseCall = podcastApi.postRegister(registerRequest, idDB, keyDB);
+            updateProgress();
             userResponseCall.enqueue(new Callback<UserResponse>() {
                 @Override
-                public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-
+                public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
+                    userResponseCall = null;
+                    updateProgress();
                     if (response.isSuccessful()) {
+                        assert response.body() != null;
+                        userStorage.applyUserResponse(response.body());
                         if (registerActivity != null) {
                             registerActivity.registerSuccessFull();
                         }
@@ -58,6 +66,9 @@ public class RegisterManager {
                         Converter<ResponseBody, ErrorResponse> converter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[]{});
                         try {
                             ErrorResponse errorResponse= converter.convert(response.errorBody());
+                            if (registerActivity == null){
+                                registerActivity.showError(errorResponse.error);
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -67,11 +78,19 @@ public class RegisterManager {
 
                 @Override
                 public void onFailure(Call<UserResponse> call, Throwable t) {
-
+                    userResponseCall = null;
+                    updateProgress();
+                    if (registerActivity == null){
+                        registerActivity.showError(t.getLocalizedMessage());
+                    }
                 }
             });
         }
-
+    }
+    private void updateProgress(){
+        if (registerActivity != null){
+            registerActivity.showProgress(userResponseCall != null);
+        }
     }
 }
 

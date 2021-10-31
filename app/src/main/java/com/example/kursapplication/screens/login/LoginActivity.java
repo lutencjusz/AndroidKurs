@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             hasErr = true;
         }
         if (!hasErr) {
-            loginManager.login(email, password);
+            loginManager.login(email, password, ((App) getApplication()).getIdDB(), ((App) getApplication()).getKeyDB());
         }
 
     }

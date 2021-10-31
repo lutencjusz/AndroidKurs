@@ -3,11 +3,15 @@ package com.example.kursapplication.screens.register;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
+import com.example.kursapplication.App;
+import com.example.kursapplication.MainActivity;
 import com.example.kursapplication.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,13 +31,26 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.edPassword)
     EditText edRPassword;
 
+    private RegisterManager registerManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+        registerManager = ((App) getApplication()).getRegisterManager();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerManager.onAttach(this);
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        registerManager.onStop();
     }
 
     @Override
@@ -77,11 +94,21 @@ public class RegisterActivity extends AppCompatActivity {
             hasErr = true;
         }
         if (!hasErr) {
-
+            registerManager.register(firstName, lastName, email, password, ((App) getApplication()).getIdDB(), ((App) getApplication()).getKeyDB());
         }
     }
 
     public void registerSuccessFull() {
+        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+        finish();
+    }
 
+    public void showError(String error) {
+        Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void showProgress(boolean progress) {
+//TODO: akcja w toolbarze
     }
 }

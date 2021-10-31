@@ -18,7 +18,7 @@ public class UserStorage {
         this.sharedPreferences = sharedPreferences;
     }
 
-    public void login(UserResponse userResponse) {
+    public void applyUserResponse(UserResponse userResponse) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(SESSION_TOKEN, userResponse.sessionToken);
         editor.putString(EMAIL, userResponse.email);

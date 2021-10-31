@@ -8,7 +8,6 @@ import com.example.kursapplication.api.UserResponse;
 import com.example.kursapplication.api.PodcastApi;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import io.github.cdimascio.dotenv.Dotenv;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,16 +37,10 @@ public class LoginManager {
         this.loginActivity = null;
     }
 
-
-    public void login(String email, String password) {
-
-        Dotenv dotenv = Dotenv.configure().directory("./assets").filename("env").load();
-
-        String id = dotenv.get("ID");
-        String key = dotenv.get("REST-API-KEY");
+    public void login(String email, String password, String idDB, String keyDB) {
 
         if (loginCall == null) { //zabezpiecznie przed podwójnym logowaniem
-            loginCall = podcastApi.getLogin(email, password, id, key);
+            loginCall = podcastApi.getLogin(email, password, idDB, keyDB);
             updateProgress();
             loginCall.enqueue(new Callback<UserResponse>() {
                 @Override
@@ -57,7 +50,7 @@ public class LoginManager {
                     if (response.isSuccessful()) {
                         UserResponse body = response.body();
                         assert body != null;
-                        userStorage.login(body);
+                        userStorage.applyUserResponse(body);
                         Log.d(LoginActivity.class.getSimpleName(), "Odpowiedź: " + body);
                         if (loginActivity != null) {
                             loginActivity.loginSuccess();
