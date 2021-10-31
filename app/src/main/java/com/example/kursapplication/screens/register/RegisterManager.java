@@ -1,5 +1,7 @@
 package com.example.kursapplication.screens.register;
 
+import static android.content.ContentValues.TAG;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import com.example.kursapplication.ErrorResponse;
 import com.example.kursapplication.UserStorage;
@@ -58,7 +60,12 @@ public class RegisterManager {
                     updateProgress();
                     if (response.isSuccessful()) {
                         assert response.body() != null;
-                        userStorage.applyUserResponse(response.body());
+                        UserResponse body = response.body();
+                        body.FirstName = firstName;
+                        body.LastName = lastName;
+                        body.email = email;
+                        body.username = email;
+                        userStorage.applyUserResponse(body);
                         if (registerActivity != null) {
                             registerActivity.registerSuccessFull();
                         }

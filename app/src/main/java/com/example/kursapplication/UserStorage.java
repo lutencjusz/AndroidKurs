@@ -1,6 +1,8 @@
 package com.example.kursapplication;
 
+import static android.content.ContentValues.TAG;
 import android.content.SharedPreferences;
+import android.util.Log;
 import com.example.kursapplication.api.UserResponse;
 
 public class UserStorage {
@@ -26,9 +28,8 @@ public class UserStorage {
         editor.putString(USERNAME, userResponse.username);
         editor.putString(LAST_NAME, userResponse.LastName);
         editor.putString(USER_ID, userResponse.objectId);
-
         editor.apply();
-
+        Log.d(TAG, "zapisano do sharedReferences " + userResponse);
 
     }
 
