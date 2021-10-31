@@ -1,4 +1,4 @@
-package com.example.kursapplication;
+package com.example.kursapplication.screens.login;
 
 import static android.content.ContentValues.TAG;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.example.kursapplication.App;
+import com.example.kursapplication.MainActivity;
+import com.example.kursapplication.R;
+import com.example.kursapplication.screens.register.RegisterActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.btnLogin)
     Button btnLogin;
 
-    private UserManager userManager;
+    private LoginManager loginManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,20 +39,20 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        userManager = ((App) getApplication()).getUserManager(); // rzutowanie na naszą App w celu wykorzystania zapisanego tam userManagera
-        Log.d(TAG, "Obecny UserManager" + userManager);
+        loginManager = ((App) getApplication()).getUserManager(); // rzutowanie na naszą App w celu wykorzystania zapisanego tam userManagera
+        Log.d(TAG, "Obecny UserManager" + loginManager);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        userManager.onAttach(this);
+        loginManager.onAttach(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        userManager.onStop();
+        loginManager.onStop();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -76,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             hasErr = true;
         }
         if (!hasErr) {
-            userManager.login(email, password);
+            loginManager.login(email, password);
         }
 
     }

@@ -1,7 +1,7 @@
 package com.example.kursapplication;
 
 import android.content.SharedPreferences;
-import com.example.kursapplication.api.LoginResponse;
+import com.example.kursapplication.api.UserResponse;
 
 public class UserStorage {
 
@@ -18,14 +18,14 @@ public class UserStorage {
         this.sharedPreferences = sharedPreferences;
     }
 
-    public void login(LoginResponse loginResponse) {
+    public void login(UserResponse userResponse) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(SESSION_TOKEN, loginResponse.sessionToken);
-        editor.putString(EMAIL, loginResponse.email);
-        editor.putString(FIRST_NAME, loginResponse.FirstName);
-        editor.putString(USERNAME, loginResponse.username);
-        editor.putString(LAST_NAME, loginResponse.LastName);
-        editor.putString(USER_ID, loginResponse.objectId);
+        editor.putString(SESSION_TOKEN, userResponse.sessionToken);
+        editor.putString(EMAIL, userResponse.email);
+        editor.putString(FIRST_NAME, userResponse.FirstName);
+        editor.putString(USERNAME, userResponse.username);
+        editor.putString(LAST_NAME, userResponse.LastName);
+        editor.putString(USER_ID, userResponse.objectId);
 
         editor.apply();
 

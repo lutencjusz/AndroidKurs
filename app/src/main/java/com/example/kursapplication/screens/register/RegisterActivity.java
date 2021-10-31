@@ -1,4 +1,4 @@
-package com.example.kursapplication;
+package com.example.kursapplication.screens.register;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import com.example.kursapplication.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -78,5 +79,9 @@ public class RegisterActivity extends AppCompatActivity {
         if (!hasErr) {
 
         }
+    }
+
+    public void registerSuccessFull() {
+
     }
 }

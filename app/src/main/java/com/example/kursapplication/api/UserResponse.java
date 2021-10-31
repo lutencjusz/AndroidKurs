@@ -2,7 +2,7 @@ package com.example.kursapplication.api;
 
 import androidx.annotation.NonNull;
 
-public class LoginResponse {
+public class UserResponse {
 
     public String username;
     public String objectId;

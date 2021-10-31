@@ -1,30 +1,33 @@
-package com.example.kursapplication;
+package com.example.kursapplication.screens.login;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
-import com.example.kursapplication.api.LoginResponse;
+import com.example.kursapplication.ErrorResponse;
+import com.example.kursapplication.UserStorage;
+import com.example.kursapplication.api.UserResponse;
 import com.example.kursapplication.api.PodcastApi;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import io.github.cdimascio.dotenv.Dotenv;
-import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Converter;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class UserManager {
+public class LoginManager {
 
     private LoginActivity loginActivity;
     private final UserStorage userStorage;
-    private Call<LoginResponse> loginCall;
+    private final PodcastApi podcastApi;
+    private final Retrofit retrofit;
+    private Call<UserResponse> loginCall;
 
-    public UserManager(UserStorage userStorage) {
+    public LoginManager(UserStorage userStorage, PodcastApi podcastApi ,Retrofit retrofit) {
         this.userStorage = userStorage;
+        this.podcastApi = podcastApi;
+        this.retrofit = retrofit;
     }
 
     public void onAttach(LoginActivity loginActivity) {
@@ -43,27 +46,16 @@ public class UserManager {
         String id = dotenv.get("ID");
         String key = dotenv.get("REST-API-KEY");
 
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient client = new OkHttpClient.Builder().addNetworkInterceptor(loggingInterceptor).build();
-
-        Retrofit.Builder builder = new Retrofit.Builder();
-        builder.baseUrl("https://parseapi.back4app.com/");
-        builder.addConverterFactory(GsonConverterFactory.create());
-        builder.client(client);
-        Retrofit retrofit = builder.build();
-        PodcastApi podcastApi = retrofit.create(PodcastApi.class);
         if (loginCall == null) { //zabezpiecznie przed podwójnym logowaniem
             loginCall = podcastApi.getLogin(email, password, id, key);
             updateProgress();
-            loginCall.enqueue(new Callback<LoginResponse>() {
+            loginCall.enqueue(new Callback<UserResponse>() {
                 @Override
-                public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
+                public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
                     loginCall=null;
                     updateProgress();
                     if (response.isSuccessful()) {
-                        LoginResponse body = response.body();
+                        UserResponse body = response.body();
                         assert body != null;
                         userStorage.login(body);
                         Log.d(LoginActivity.class.getSimpleName(), "Odpowiedź: " + body);
@@ -87,7 +79,7 @@ public class UserManager {
                 }
 
                 @Override
-                public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
+                public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                     loginCall = null;
                     updateProgress();
                     if (loginActivity != null) {
