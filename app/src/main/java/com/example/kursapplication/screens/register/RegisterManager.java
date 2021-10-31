@@ -1,7 +1,5 @@
 package com.example.kursapplication.screens.register;
 
-import static android.content.ContentValues.TAG;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import com.example.kursapplication.ErrorResponse;
 import com.example.kursapplication.UserStorage;
@@ -72,6 +70,7 @@ public class RegisterManager {
                     } else {
                         Converter<ResponseBody, ErrorResponse> converter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[]{});
                         try {
+                            assert response.errorBody() != null;
                             ErrorResponse errorResponse= converter.convert(response.errorBody());
                             if (registerActivity == null){
                                 registerActivity.showError(errorResponse.error);
@@ -84,7 +83,7 @@ public class RegisterManager {
                 }
 
                 @Override
-                public void onFailure(Call<UserResponse> call, Throwable t) {
+                public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                     userResponseCall = null;
                     updateProgress();
                     if (registerActivity == null){

@@ -16,8 +16,6 @@ public class App extends Application {
     private LoginManager loginManager;
     private RegisterManager registerManager;
     private UserStorage userStorage;
-    private PodcastApi podcastApi;
-    private Retrofit retrofit;
     private String idDB;
     private String keyDB;
 
@@ -40,8 +38,8 @@ public class App extends Application {
         builder.addConverterFactory(GsonConverterFactory.create());
         builder.client(client);
 
-        retrofit = builder.build();
-        podcastApi = retrofit.create(PodcastApi.class);
+        Retrofit retrofit = builder.build();
+        PodcastApi podcastApi = retrofit.create(PodcastApi.class);
         userStorage = new UserStorage(PreferenceManager.getDefaultSharedPreferences(this));
         loginManager = new LoginManager(userStorage, podcastApi, retrofit);
         registerManager = new RegisterManager(userStorage, podcastApi, retrofit);
@@ -57,14 +55,6 @@ public class App extends Application {
 
     public UserStorage getUserStorage() {
         return userStorage;
-    }
-
-    public PodcastApi getPodcastApi() {
-        return podcastApi;
-    }
-
-    public Retrofit getRetrofit() {
-        return retrofit;
     }
 
     public String getIdDB() {
