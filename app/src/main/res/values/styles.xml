@@ -50,5 +50,22 @@
         <item name="android:textColor">@color/login_text_color_selector</item>
     </style>
 
+    <style name="TextInputEditTextStyle">
+        <item name="android:textColor">@color/login_text_color_selector</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/material_on_surface_stroke</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+    </style>
+    <style name="TextInputLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@color/login_text_color_selector</item>
+        <item name="boxStrokeColor">@color/login_text_color_selector</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="errorEnabled">true</item>
+        <item name="endIconTint">@color/login_text_color_selector</item>
+    </style>
+
 
 </resources>

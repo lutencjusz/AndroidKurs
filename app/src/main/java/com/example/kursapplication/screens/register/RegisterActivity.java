@@ -13,17 +13,23 @@ import android.widget.Toast;
 import com.example.kursapplication.App;
 import com.example.kursapplication.MainActivity;
 import com.example.kursapplication.R;
+import com.google.android.material.textfield.TextInputLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RegisterActivity extends AppCompatActivity {
-
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.edFirstName)
     EditText edFirstName;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.edLastName)
     EditText edLastName;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.edFirstNameTextInputLayout)
+    TextInputLayout edFirstNameTextInputLayout;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.edLastNameTextInputLayout)
+    TextInputLayout edLastNameTextInputLayout;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.edEmail)
     EditText edREmail;
@@ -38,7 +44,17 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+
+
         registerManager = ((App) getApplication()).getRegisterManager();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
 
     @Override
@@ -82,12 +98,16 @@ public class RegisterActivity extends AppCompatActivity {
             hasErr = true;
         }
         if (firstName.isEmpty()) {
-            edFirstName.setError(getString(R.string.err_empty_filed));
+            edFirstNameTextInputLayout.setError(getString(R.string.err_empty_filed));
             hasErr = true;
+        } else {
+            edFirstNameTextInputLayout.setError(null);
         }
         if (lastName.isEmpty()) {
-            edLastName.setError(getString(R.string.err_empty_filed));
+            edLastNameTextInputLayout.setError(getString(R.string.err_empty_filed));
             hasErr = true;
+        } else {
+            edLastNameTextInputLayout.setError(null);
         }
         if (password.isEmpty()) {
             edRPassword.setError(getString(R.string.err_empty_filed));
