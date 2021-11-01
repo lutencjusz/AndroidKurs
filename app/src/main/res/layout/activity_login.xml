@@ -93,7 +93,7 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@color/colorAccent"
+                android:background="@color/purple_200"
                 android:textColor="@color/dark_jungle_green"
                 android:onClick="loginClick"
                 android:text="@string/btnLogin" />
