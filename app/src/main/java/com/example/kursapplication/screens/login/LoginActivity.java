@@ -10,6 +10,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.kursapplication.App;
 import com.example.kursapplication.MainActivity;
@@ -36,7 +37,10 @@ public class LoginActivity extends AppCompatActivity {
     TextInputLayout edPasswordTextInputLayout;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.btnLogin)
-    Button btnLogin;
+    TextView btnLogin;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.btnRegister)
+    TextView btnRegister;
 
     private LoginManager loginManager;
 
