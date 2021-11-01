@@ -25,17 +25,23 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.edLastName)
     EditText edLastName;
     @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.edEmail)
+    EditText edREmail;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.edPassword)
+    EditText edRPassword;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.edFirstNameTextInputLayout)
     TextInputLayout edFirstNameTextInputLayout;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.edLastNameTextInputLayout)
     TextInputLayout edLastNameTextInputLayout;
     @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.edEmail)
-    EditText edREmail;
+    @BindView(R.id.edEmailTextInputLayout)
+    TextInputLayout edEmailTextInputLayout;
     @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.edPassword)
-    EditText edRPassword;
+    @BindView(R.id.edPasswordTextInputLayout)
+    TextInputLayout edPasswordTextInputLayout;
 
     private RegisterManager registerManager;
 
@@ -46,7 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-
 
         registerManager = ((App) getApplication()).getRegisterManager();
     }
@@ -91,11 +96,13 @@ public class RegisterActivity extends AppCompatActivity {
         String firstName = edFirstName.getText().toString();
         String lastName = edLastName.getText().toString();
         if (email.isEmpty()) {
-            edREmail.setError(getString(R.string.err_empty_filed));
+            edEmailTextInputLayout.setError(getString(R.string.err_empty_filed));
             hasErr = true;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edREmail.setError(getString(R.string.err_is_not_email));
+            edEmailTextInputLayout.setError(getString(R.string.err_is_not_email));
             hasErr = true;
+        } else {
+            edEmailTextInputLayout.setError(null);
         }
         if (firstName.isEmpty()) {
             edFirstNameTextInputLayout.setError(getString(R.string.err_empty_filed));
@@ -110,8 +117,10 @@ public class RegisterActivity extends AppCompatActivity {
             edLastNameTextInputLayout.setError(null);
         }
         if (password.isEmpty()) {
-            edRPassword.setError(getString(R.string.err_empty_filed));
+            edPasswordTextInputLayout.setError(getString(R.string.err_empty_filed));
             hasErr = true;
+        } else {
+            edPasswordTextInputLayout.setError(null);
         }
         if (!hasErr) {
             registerManager.register(firstName, lastName, email, password, ((App) getApplication()).getIdDB(), ((App) getApplication()).getKeyDB());
