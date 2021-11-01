@@ -6,4 +6,6 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="logoMarginTop" type="dimen" format="float">61.0dp</dimen>
+    <dimen name="login_horizontal_padding">51dp</dimen>
+    <dimen name="button_height">48dp</dimen>
 </resources>

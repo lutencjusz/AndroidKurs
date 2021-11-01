@@ -19,13 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="51dp"
-            android:paddingRight="51dp"
+            android:paddingLeft="@dimen/login_horizontal_padding"
+            android:paddingRight="@dimen/login_horizontal_padding"
             tools:context=".screens.login.LoginActivity">
 
             <ImageView
-                android:layout_width="112dp"
-                android:layout_height="90dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/logoMarginTop"
                 android:src="@drawable/logo" />
@@ -40,6 +40,7 @@
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/login_text_color_selector"
                 app:errorEnabled="true"
+                app:startIconDrawable="@drawable/ic_email_selector"
                 app:startIconTint="@color/login_text_color_selector">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -49,10 +50,9 @@
                     android:autofillHints="@string/hiEmail"
                     android:background="@color/material_on_surface_stroke"
                     android:drawableStart="@drawable/ic_email_selector"
-                    android:ems="10"
                     android:hint="@string/hiEmail"
                     android:inputType="textEmailAddress"
-                    android:minHeight="48dp"
+                    android:minHeight="@dimen/button_height"
                     android:textColor="@color/login_text_color_selector" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -80,10 +80,9 @@
                     android:layout_height="wrap_content"
                     android:autofillHints="@string/hiPassword"
                     android:background="@color/material_on_surface_stroke"
-                    android:ems="10"
                     android:hint="@string/hiPassword"
                     android:inputType="textPassword"
-                    android:minHeight="48dp"
+                    android:minHeight="@dimen/button_height"
                     android:textColor="@color/login_text_color_selector" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -95,6 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@color/colorAccent"
+                android:textColor="@color/dark_jungle_green"
                 android:onClick="loginClick"
                 android:text="@string/btnLogin" />
 
