@@ -19,7 +19,7 @@
         <item name="colorAccent">@color/banana_yellow</item>
     </style>
 
-    <style name="RegisterTheme" parent="AppTheme">
+    <style name="RegisterTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- toolbar and status bar color -->
         <item name="colorPrimary">@color/banana_yellow</item>
         <item name="colorPrimaryDark">@color/dark_yellow</item>
