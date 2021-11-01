@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="match_parent"
@@ -11,95 +11,100 @@
         android:scaleType="centerCrop"
         android:src="@drawable/bg" />
 
-    <LinearLayout
-        android:paddingLeft="51dp"
-        android:paddingRight="51dp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".screens.login.LoginActivity">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_marginTop="@dimen/logoMarginTop"
-            android:layout_width="112dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/logo" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edMailTextInputLayout"
-            app:errorEnabled="true"
-            app:boxStrokeColor="@color/login_text_color_selector"
-            app:boxStrokeWidth="2dp"
-            app:startIconTint="@color/login_text_color_selector"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/login_text_color_selector"
-            android:textColorHint="@color/login_text_color_selector"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="51dp"
+            android:paddingRight="51dp"
+            tools:context=".screens.login.LoginActivity">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edMail"
+            <ImageView
+                android:layout_width="112dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/logoMarginTop"
+                android:src="@drawable/logo" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edMailTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="@string/hiEmail"
-                android:drawableStart="@drawable/ic_email_selector"
-                android:ems="10"
-                android:hint="@string/hiEmail"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/login_text_color_selector"
-                android:background="@color/material_on_surface_stroke"
-                android:minHeight="48dp" />
+                android:textColorHint="@color/login_text_color_selector"
+                app:boxStrokeColor="@color/login_text_color_selector"
+                app:boxStrokeWidth="2dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/login_text_color_selector"
+                app:errorEnabled="true"
+                app:startIconTint="@color/login_text_color_selector">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edMail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/hiEmail"
+                    android:background="@color/material_on_surface_stroke"
+                    android:drawableStart="@drawable/ic_email_selector"
+                    android:ems="10"
+                    android:hint="@string/hiEmail"
+                    android:inputType="textEmailAddress"
+                    android:minHeight="48dp"
+                    android:textColor="@color/login_text_color_selector" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edPasswordTextInputLayout"
-            app:boxStrokeColor="@color/login_text_color_selector"
-            app:boxStrokeWidth="2dp"
-            app:errorEnabled="true"
-            app:endIconMode="password_toggle"
-            app:endIconTint="@color/login_text_color_selector"
-            app:startIconDrawable="@drawable/ic_password_selector"
-            app:startIconTint="@color/login_text_color_selector"
-            app:counterEnabled="true"
-            app:counterMaxLength="20"
-            app:counterTextColor="@color/login_text_color_selector"
-            app:counterOverflowTextColor="@color/login_text_color_selector"
-            android:textColorHint="@color/login_text_color_selector"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edPassword"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edPasswordTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="@string/hiPassword"
-                android:ems="10"
-                android:hint="@string/hiPassword"
-                android:inputType="textPassword"
-                android:textColor="@color/login_text_color_selector"
-                android:background="@color/material_on_surface_stroke"
-                android:minHeight="48dp" />
+                android:textColorHint="@color/login_text_color_selector"
+                app:boxStrokeColor="@color/login_text_color_selector"
+                app:boxStrokeWidth="2dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
+                app:counterOverflowTextColor="@color/login_text_color_selector"
+                app:counterTextColor="@color/login_text_color_selector"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/login_text_color_selector"
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/ic_password_selector"
+                app:startIconTint="@color/login_text_color_selector">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/hiPassword"
+                    android:background="@color/material_on_surface_stroke"
+                    android:ems="10"
+                    android:hint="@string/hiPassword"
+                    android:inputType="textPassword"
+                    android:minHeight="48dp"
+                    android:textColor="@color/login_text_color_selector" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-        <TextView
-            android:id="@+id/btnLogin"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/colorAccent"
-            android:onClick="loginClick"
-            android:text="@string/btnLogin" />
+            <TextView
+                android:id="@+id/btnLogin"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/colorAccent"
+                android:onClick="loginClick"
+                android:text="@string/btnLogin" />
 
-        <TextView
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:onClick="registerClick"
-            android:text="@string/btnRegister" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/btnRegister"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:onClick="registerClick"
+                android:text="@string/btnRegister" />
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
