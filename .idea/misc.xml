@@ -5,16 +5,21 @@
       <map>
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/drawable/ic_close.xml" value="0.3828125" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/drawable/ic_close_24.xml" value="0.3828125" />
+        <entry key="..\:/Data/Android/KursApplication/app/src/main/res/drawable/ic_discover.xml" value="0.18541666666666667" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/drawable/ic_email.xml" value="0.2838541666666667" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/drawable/ic_email_selected.xml" value="0.28177083333333336" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/drawable/ic_email_selector.xml" value="0.28177083333333336" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/drawable/ic_password.xml" value="0.2838541666666667" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/drawable/ic_password_selected.xml" value="0.28177083333333336" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/drawable/ic_password_selector.xml" value="0.28177083333333336" />
+        <entry key="..\:/Data/Android/KursApplication/app/src/main/res/drawable/ic_subscribe.xml" value="0.18541666666666667" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/content_main.xml" value="0.20520833333333333" />
+        <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/discover_fragment.xml" value="0.16927083333333334" />
+        <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/fragment_subscribed.xml" value="0.16927083333333334" />
+        <entry key="..\:/Data/Android/KursApplication/app/src/main/res/menu/activity_main_drawer.xml" value="1.0" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/menu/main.xml" value="0.21927083333333333" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/menu/register.xml" value="0.18697916666666667" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.19895833333333332" />
