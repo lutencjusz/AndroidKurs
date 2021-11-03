@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Aplikacja z kursu</string>
+    <string name="app_name">Aplikacja testowa</string>
     <string name="edMail">Email</string>
     <string name="edPassword">Hasło</string>
     <string name="btnLogin">Login</string>

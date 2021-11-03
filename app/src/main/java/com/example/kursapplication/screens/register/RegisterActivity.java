@@ -14,6 +14,7 @@ import com.example.kursapplication.App;
 import com.example.kursapplication.MainActivity;
 import com.example.kursapplication.R;
 import com.google.android.material.textfield.TextInputLayout;
+import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -50,9 +51,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-
         registerManager = ((App) getApplication()).getRegisterManager();
     }
 

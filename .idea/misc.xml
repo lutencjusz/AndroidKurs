@@ -16,9 +16,13 @@
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/app_bar_main.xml" value="0.1" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/content_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/discover_fragment.xml" value="0.16927083333333334" />
+        <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/fragment_discover.xml" value="0.2734375" />
+        <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/fragment_home.xml" value="0.16510416666666666" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/fragment_subscribed.xml" value="0.16927083333333334" />
+        <entry key="..\:/Data/Android/KursApplication/app/src/main/res/layout/nav_header_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/menu/activity_main_drawer.xml" value="1.0" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/menu/main.xml" value="0.21927083333333333" />
         <entry key="..\:/Data/Android/KursApplication/app/src/main/res/menu/register.xml" value="0.18697916666666667" />
