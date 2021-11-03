@@ -4,14 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.GridLayout;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.TextView;
 import com.example.kursapplication.screens.discover.DiscoverFragment;
 import com.example.kursapplication.screens.login.LoginActivity;
 import com.example.kursapplication.screens.subscribed.SubscribedFragment;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.navigationrail.NavigationRailView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import androidx.annotation.NonNull;
@@ -74,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        View headerView = navigationView.getHeaderView(0);
+        TextView drawerNameTextView = headerView.findViewById(R.id.drawerNameTextView);
+        TextView drawerEmailTextView = headerView.findViewById(R.id.drawerEmailTextView);
+
+        drawerNameTextView.setText(userStorage.getFullName());
+        drawerEmailTextView.setText(userStorage.getEmail());
     }
 
     private void showFragment(Fragment fragment) {
