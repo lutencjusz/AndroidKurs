@@ -24,4 +24,6 @@
     <string name="title_activity_main">Apka testowa</string>
     <string name="menu_subscribe">Subskrypcja</string>
     <string name="menu_discover">Odkrywanie</string>
+    <string name="add">Add</string>
+    <string name="sort">Sort</string>
 </resources>
