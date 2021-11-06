@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.example.kursapplication.screens.discover.DiscoverFragment;
 import com.example.kursapplication.screens.login.LoginActivity;
+import com.example.kursapplication.screens.subscribed.AddActionEvent;
 import com.example.kursapplication.screens.subscribed.SubscribedFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -21,12 +22,15 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.kursapplication.databinding.ActivityMainBinding;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SubscribedFragment.Callback {
 
     private AppBarConfiguration mAppBarConfiguration;
     private UserStorage userStorage;
     private NavigationView navigationView;
+    private Bus bus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawerNameTextView.setText(userStorage.getFullName());
         drawerEmailTextView.setText(userStorage.getEmail());
+
+        bus = ((App)getApplication()).getBus();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bus.register(this);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        bus.unregister(this);
     }
 
     private void showFragment(Fragment fragment) {
@@ -109,6 +128,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer1.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Subscribe
+    public void onAddAction (AddActionEvent event) {
+    goToDiscover();
     }
 
     @Override

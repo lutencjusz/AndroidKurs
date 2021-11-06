@@ -5,6 +5,7 @@ import android.preference.PreferenceManager;
 import com.example.kursapplication.api.PodcastApi;
 import com.example.kursapplication.screens.login.LoginManager;
 import com.example.kursapplication.screens.register.RegisterManager;
+import com.squareup.otto.Bus;
 import io.github.cdimascio.dotenv.Dotenv;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -18,6 +19,7 @@ public class App extends Application {
     private UserStorage userStorage;
     private String idDB;
     private String keyDB;
+    private Bus bus;
 
     @Override
     public void onCreate() {
@@ -43,6 +45,8 @@ public class App extends Application {
         userStorage = new UserStorage(PreferenceManager.getDefaultSharedPreferences(this));
         loginManager = new LoginManager(userStorage, podcastApi, retrofit);
         registerManager = new RegisterManager(userStorage, podcastApi, retrofit);
+        bus = new Bus();
+
     }
 
     public LoginManager getUserManager() {
@@ -63,5 +67,9 @@ public class App extends Application {
 
     public String getKeyDB() {
         return keyDB;
+    }
+
+    public Bus getBus() {
+        return bus;
     }
 }

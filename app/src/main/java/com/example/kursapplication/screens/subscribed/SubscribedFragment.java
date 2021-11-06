@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.example.kursapplication.App;
 import com.example.kursapplication.MainActivity;
 import com.example.kursapplication.R;
 
@@ -57,7 +58,8 @@ public class SubscribedFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add:
-                callback.goToDiscover();
+                App app = (App) getActivity().getApplication();
+                app.getBus().post(new AddActionEvent());
                 return true;
             case R.id.action_sort:
                 return true;
