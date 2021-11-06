@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerNameTextView.setText(userStorage.getFullName());
         drawerEmailTextView.setText(userStorage.getEmail());
 
-        bus = ((App)getApplication()).getBus();
+        bus = ((App) getApplication()).getBus();
     }
 
     @Override
@@ -125,14 +125,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
 
-        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer1 = findViewById(R.id.drawer_layout);
         drawer1.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Subscribe
-    public void onAddAction (AddActionEvent event) {
-    goToDiscover();
+    public void onAddAction(AddActionEvent event) {
+        goToDiscover();
     }
 
     @Override
