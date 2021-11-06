@@ -1,6 +1,7 @@
 package com.example.kursapplication.screens.subscribed;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +16,24 @@ import com.example.kursapplication.MainActivity;
 import com.example.kursapplication.R;
 
 public class SubscribedFragment extends Fragment {
+
+    public interface Callback {
+        void goToDiscover();
+    }
+
+    public Callback callback;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        callback = (Callback) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        callback = null;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +57,7 @@ public class SubscribedFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add:
-                ((MainActivity)getActivity()).goToDiscover();
+                callback.goToDiscover();
                 return true;
             case R.id.action_sort:
                 return true;

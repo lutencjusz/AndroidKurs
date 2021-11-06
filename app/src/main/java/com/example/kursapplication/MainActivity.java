@@ -22,7 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.kursapplication.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SubscribedFragment.Callback {
 
     private AppBarConfiguration mAppBarConfiguration;
     private UserStorage userStorage;
@@ -53,28 +53,13 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.container);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
+        navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
         TextView drawerNameTextView = headerView.findViewById(R.id.drawerNameTextView);
         TextView drawerEmailTextView = headerView.findViewById(R.id.drawerEmailTextView);
 
         drawerNameTextView.setText(userStorage.getFullName());
         drawerEmailTextView.setText(userStorage.getEmail());
-    }
-
-    public boolean onNavigationItemSelected(MenuItem item){
-        int id = item.getItemId();
-        if (id == R.id.nav_discover) {
-            showFragment(new DiscoverFragment());
-        } else if (id == R.id.nav_subscribe) {
-            showFragment(new SubscribedFragment());
-        } else if (id == R.id.nav_logout) {
-
-        }
-
-        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer1.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     private void showFragment(Fragment fragment) {
@@ -110,10 +95,26 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.nav_discover) {
+            showFragment(new DiscoverFragment());
+        } else if (id == R.id.nav_subscribe) {
+            showFragment(new SubscribedFragment());
+        } else {
+
+        }
+
+        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer1.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
     public void goToDiscover() {
         MenuItem item = navigationView.getMenu().findItem(R.id.nav_discover);
         item.setChecked(true);
         onNavigationItemSelected(item);
-
     }
 }
