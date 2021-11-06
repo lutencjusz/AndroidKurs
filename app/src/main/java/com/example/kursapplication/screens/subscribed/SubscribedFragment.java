@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.example.kursapplication.MainActivity;
 import com.example.kursapplication.R;
 
 public class SubscribedFragment extends Fragment {
@@ -18,6 +19,7 @@ public class SubscribedFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -36,6 +38,7 @@ public class SubscribedFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add:
+                ((MainActivity)getActivity()).goToDiscover();
                 return true;
             case R.id.action_sort:
                 return true;

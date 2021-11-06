@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private UserStorage userStorage;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,38 +46,35 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
         DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.container);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.nav_discover) {
-                    showFragment(new DiscoverFragment());
-                } else if (id == R.id.nav_subscribe) {
-                    showFragment(new SubscribedFragment());
-                } else if (id == R.id.nav_logout) {
-
-                }
-
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
-                return true;
-            }
-        });
+        navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
         View headerView = navigationView.getHeaderView(0);
         TextView drawerNameTextView = headerView.findViewById(R.id.drawerNameTextView);
         TextView drawerEmailTextView = headerView.findViewById(R.id.drawerEmailTextView);
 
         drawerNameTextView.setText(userStorage.getFullName());
         drawerEmailTextView.setText(userStorage.getEmail());
+    }
+
+    public boolean onNavigationItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if (id == R.id.nav_discover) {
+            showFragment(new DiscoverFragment());
+        } else if (id == R.id.nav_subscribe) {
+            showFragment(new SubscribedFragment());
+        } else if (id == R.id.nav_logout) {
+
+        }
+
+        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer1.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     private void showFragment(Fragment fragment) {
@@ -110,5 +108,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToDiscover() {
+        MenuItem item = navigationView.getMenu().findItem(R.id.nav_discover);
+        item.setChecked(true);
+        onNavigationItemSelected(item);
+
     }
 }
