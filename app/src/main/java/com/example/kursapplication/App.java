@@ -44,11 +44,12 @@ public class App extends Application {
 
         Retrofit retrofit = builder.build();
         PodcastApi podcastApi = retrofit.create(PodcastApi.class);
+        bus = new Bus();
         userStorage = new UserStorage(PreferenceManager.getDefaultSharedPreferences(this));
         loginManager = new LoginManager(userStorage, podcastApi, retrofit);
         registerManager = new RegisterManager(userStorage, podcastApi, retrofit);
-        discoverManager = new DiscoverManager(podcastApi);
-        bus = new Bus();
+        discoverManager = new DiscoverManager(podcastApi, bus);
+
 
     }
 
