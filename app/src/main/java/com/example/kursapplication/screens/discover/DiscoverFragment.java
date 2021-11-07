@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.kursapplication.App;
 import com.example.kursapplication.R;
+import com.example.kursapplication.api.Podcast;
+import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -22,11 +24,15 @@ public class DiscoverFragment extends Fragment {
     @BindView(R.id.discover_recycleView)
     RecyclerView discoverRecycleView;
     private DiscoverManager discoverManager;
+    private String idDB;
+    private String keyDB;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         discoverManager = ((App)getActivity().getApplication()).getDiscoverManager();
+        idDB=((App)getActivity().getApplication()).getIdDB();
+        keyDB=((App)getActivity().getApplication()).getKeyDB();
     }
 
     @Nullable
@@ -46,11 +52,17 @@ public class DiscoverFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        discoverManager.loadPodcasts(((App)getActivity().getApplication()).getIdDB(), ((App)getActivity().getApplication()).getKeyDB());
+        discoverManager.onAttach(this);
+        discoverManager.loadPodcasts(idDB, keyDB);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        discoverManager.onStop();
+    }
+
+    public void showPodcasts(List<Podcast> results) {
+DiscoverAdapter
     }
 }

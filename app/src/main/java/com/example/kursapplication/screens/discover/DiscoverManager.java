@@ -11,9 +11,18 @@ import retrofit2.Response;
 public class DiscoverManager {
     private final PodcastApi podcastApi;
     private Call<PodcastResponse> call;
+    private DiscoverFragment discoverFragment;
 
     public DiscoverManager(PodcastApi podcastApi) {
         this.podcastApi = podcastApi;
+    }
+
+    public void onAttach(DiscoverFragment discoverFragment){
+        this.discoverFragment = discoverFragment;
+    }
+
+    public void onStop(){
+        this.discoverFragment = null;
     }
 
     public void loadPodcasts(String idBD, String keyDB) {
@@ -24,6 +33,10 @@ public class DiscoverManager {
                 if (response.isSuccessful()) {
                     for (Podcast podcast : response.body().results) {
                         Log.d(DiscoverManager.class.getSimpleName(), "Podcast: " + podcast);
+
+                    }
+                    if(discoverFragment != null){
+                        discoverFragment.showPodcasts(response.body().results);
                     }
 
                 }
