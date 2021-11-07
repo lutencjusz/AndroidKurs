@@ -30,9 +30,9 @@ public class DiscoverFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        discoverManager = ((App)getActivity().getApplication()).getDiscoverManager();
-        idDB=((App)getActivity().getApplication()).getIdDB();
-        keyDB=((App)getActivity().getApplication()).getKeyDB();
+        discoverManager = ((App) getActivity().getApplication()).getDiscoverManager();
+        idDB = ((App) getActivity().getApplication()).getIdDB();
+        keyDB = ((App) getActivity().getApplication()).getKeyDB();
     }
 
     @Nullable
@@ -63,6 +63,9 @@ public class DiscoverFragment extends Fragment {
     }
 
     public void showPodcasts(List<Podcast> results) {
-DiscoverAdapter
+        DiscoverAdapter adapter = new DiscoverAdapter();
+        adapter.setPodcasts(results);
+        discoverRecycleView.setAdapter(adapter);
+
     }
 }

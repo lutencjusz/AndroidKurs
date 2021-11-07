@@ -31,6 +31,7 @@ public class DiscoverManager {
             @Override
             public void onResponse(Call<PodcastResponse> call, Response<PodcastResponse> response) {
                 if (response.isSuccessful()) {
+                    assert response.body() != null;
                     for (Podcast podcast : response.body().results) {
                         Log.d(DiscoverManager.class.getSimpleName(), "Podcast: " + podcast);
 
