@@ -1,5 +1,6 @@
 package com.example.kursapplication.api;
 
+import com.example.kursapplication.screens.discover.Subscription;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -20,7 +21,7 @@ public interface PodcastApi {
             "X-Parse-Revocable-Session: 1"
     })
     @POST("users")
-    Call<UserResponse> postRegister (@Body RegisterRequest request, @Header("X-Parse-Application-Id") String id, @Header("X-Parse-REST-API-Key") String key);
+    Call<UserResponse> postRegister(@Body RegisterRequest request, @Header("X-Parse-Application-Id") String id, @Header("X-Parse-REST-API-Key") String key);
 
     @Headers({
             "X-Parse-Revocable-Session: 1"
@@ -28,5 +29,9 @@ public interface PodcastApi {
     @GET("classes/Podcast")
     Call<PodcastResponse> getPodcasts(@Header("X-Parse-Application-Id") String id, @Header("X-Parse-REST-API-Key") String key);
 
-
+    @Headers({
+            "X-Parse-Revocable-Session: 1"
+    })
+    @POST("classes/subscription")
+    Call<Subscription> postSubscription(@Body Subscription subscription, @Header("X-Pars-Session-Token") String token, @Header("X-Parse-Application-Id") String id, @Header("X-Parse-REST-API-Key") String key);
 }

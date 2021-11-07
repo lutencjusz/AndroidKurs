@@ -44,10 +44,18 @@ public class UserStorage {
     }
 
     public String getFullName() {
-        return String.format("%s %s", sharedPreferences.getString("FirstName",""), sharedPreferences.getString("LastName",""));
+        return String.format("%s %s", sharedPreferences.getString(FIRST_NAME,""), sharedPreferences.getString(LAST_NAME,""));
     }
 
     public String getEmail(){
-        return sharedPreferences.getString("email","");
+        return sharedPreferences.getString(EMAIL,"");
+    }
+
+    public String getUserId() {
+        return sharedPreferences.getString(USER_ID, "");
+    }
+
+    public String getToken() {
+        return sharedPreferences.getString(SESSION_TOKEN, "");
     }
 }

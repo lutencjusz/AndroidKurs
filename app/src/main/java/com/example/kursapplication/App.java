@@ -48,7 +48,7 @@ public class App extends Application {
         userStorage = new UserStorage(PreferenceManager.getDefaultSharedPreferences(this));
         loginManager = new LoginManager(userStorage, podcastApi, retrofit);
         registerManager = new RegisterManager(userStorage, podcastApi, retrofit);
-        discoverManager = new DiscoverManager(podcastApi, bus);
+        discoverManager = new DiscoverManager(podcastApi, bus, userStorage, idDB, keyDB);
 
 
     }

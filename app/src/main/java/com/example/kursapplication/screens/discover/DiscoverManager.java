@@ -1,9 +1,14 @@
 package com.example.kursapplication.screens.discover;
 
 import android.util.Log;
+import com.example.kursapplication.ErrorResponse;
+import com.example.kursapplication.UserStorage;
+import com.example.kursapplication.api.ErrorConverter;
 import com.example.kursapplication.api.Podcast;
 import com.example.kursapplication.api.PodcastApi;
 import com.example.kursapplication.api.PodcastResponse;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 import retrofit2.Call;
@@ -13,20 +18,29 @@ import retrofit2.Response;
 public class DiscoverManager {
     private final PodcastApi podcastApi;
     private Call<PodcastResponse> call;
+    private Call<Subscription> subscriptionCall;
     private DiscoverFragment discoverFragment;
     private final Bus bus;
+    private final UserStorage userStorage;
+    private final ErrorConverter errorConverter;
+    private final String idDB;
+    private final String keyDB;
 
-    public DiscoverManager(PodcastApi podcastApi, Bus bus) {
+    public DiscoverManager(PodcastApi podcastApi, Bus bus, UserStorage userStorage, ErrorConverter errorConverter, String idDB, String keyDB) {
         this.podcastApi = podcastApi;
         this.bus = bus;
+        this.userStorage = userStorage;
+        this.errorConverter = errorConverter;
+        this.idDB = idDB;
+        this.keyDB = keyDB;
         bus.register(this);
     }
 
-    public void onAttach(DiscoverFragment discoverFragment){
+    public void onAttach(DiscoverFragment discoverFragment) {
         this.discoverFragment = discoverFragment;
     }
 
-    public void onStop(){
+    public void onStop() {
         this.discoverFragment = null;
     }
 
@@ -41,7 +55,7 @@ public class DiscoverManager {
                         Log.d(DiscoverManager.class.getSimpleName(), "Podcast: " + podcast);
 
                     }
-                    if(discoverFragment != null){
+                    if (discoverFragment != null) {
                         discoverFragment.showPodcasts(response.body().results);
                     }
 
@@ -56,16 +70,49 @@ public class DiscoverManager {
     }
 
     @Subscribe
-    public void onAddPodcast(AddPodcastEvent event){
-        Log.d(DiscoverManager.class.getSimpleName() ,"Dodano:" + event.podcast);
+    public void onAddPodcast(AddPodcastEvent event) {
+        Log.d(DiscoverManager.class.getSimpleName(), "Dodano:" + event.podcast);
         saveSubscription(event.podcast);
     }
 
     private void saveSubscription(Podcast podcast) {
+
+        String userId = userStorage.getUserId();
+
         Subscription subscription = new Subscription();
         subscription.podcastId = podcast.podcastId;
-        subscription.userId =
+        subscription.userId = userId;
+        subscription.acl = new JsonObject();
 
+        JsonObject aclJson = new JsonObject();
+        aclJson.add("read", new JsonPrimitive(true));
+        aclJson.add("write", new JsonPrimitive(true));
+
+        subscription.acl.add(userId, aclJson);
+
+        subscriptionCall = podcastApi.postSubscription(subscription, userStorage.getToken(), idDB, keyDB);
+        subscriptionCall.enqueue(new Callback<Subscription>() {
+            @Override
+            public void onResponse(Call<Subscription> call, Response<Subscription> response) {
+                if (response.isSuccessful()) {
+                    if (discoverFragment != null) {
+                        discoverFragment.saveSuccessful();
+                    }
+                } else {
+                    ErrorResponse errorResponse = errorConverter.convert(response.errorBody());
+                    if (discoverFragment != null && errorResponse != null) {
+                        discoverFragment.showError(errorResponse.error);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Subscription> call, Throwable t) {
+                if (discoverFragment != null) {
+                    discoverFragment.showError(t.getLocalizedMessage());
+                }
+            }
+        });
     }
 
 }
