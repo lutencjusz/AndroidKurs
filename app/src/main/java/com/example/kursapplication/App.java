@@ -3,6 +3,7 @@ package com.example.kursapplication;
 import android.app.Application;
 import android.preference.PreferenceManager;
 import com.example.kursapplication.api.PodcastApi;
+import com.example.kursapplication.screens.discover.DiscoverManager;
 import com.example.kursapplication.screens.login.LoginManager;
 import com.example.kursapplication.screens.register.RegisterManager;
 import com.squareup.otto.Bus;
@@ -20,6 +21,7 @@ public class App extends Application {
     private String idDB;
     private String keyDB;
     private Bus bus;
+    private DiscoverManager discoverManager;
 
     @Override
     public void onCreate() {
@@ -45,6 +47,7 @@ public class App extends Application {
         userStorage = new UserStorage(PreferenceManager.getDefaultSharedPreferences(this));
         loginManager = new LoginManager(userStorage, podcastApi, retrofit);
         registerManager = new RegisterManager(userStorage, podcastApi, retrofit);
+        discoverManager = new DiscoverManager(podcastApi);
         bus = new Bus();
 
     }
@@ -71,5 +74,9 @@ public class App extends Application {
 
     public Bus getBus() {
         return bus;
+    }
+
+    public DiscoverManager getDiscoverManager() {
+        return discoverManager;
     }
 }

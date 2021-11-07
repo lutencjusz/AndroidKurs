@@ -22,4 +22,11 @@ public interface PodcastApi {
     @POST("users")
     Call<UserResponse> postRegister (@Body RegisterRequest request, @Header("X-Parse-Application-Id") String id, @Header("X-Parse-REST-API-Key") String key);
 
+    @Headers({
+            "X-Parse-Revocable-Session: 1"
+    })
+    @GET("classes/Podcast")
+    Call<PodcastResponse> getPodcasts(@Header("X-Parse-Application-Id") String id, @Header("X-Parse-REST-API-Key") String key);
+
+
 }
