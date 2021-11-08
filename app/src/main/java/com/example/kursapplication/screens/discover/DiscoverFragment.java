@@ -9,12 +9,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.kursapplication.App;
 import com.example.kursapplication.R;
 import com.example.kursapplication.api.Podcast;
+import com.squareup.otto.Bus;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,19 +27,24 @@ public class DiscoverFragment extends Fragment {
     private DiscoverManager discoverManager;
     private String idDB;
     private String keyDB;
+    private Bus bus;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        discoverManager = ((App) getActivity().getApplication()).getDiscoverManager();
-        idDB = ((App) getActivity().getApplication()).getIdDB();
-        keyDB = ((App) getActivity().getApplication()).getKeyDB();
+        App app = (App) getActivity().getApplication();
+        idDB = app.getIdDB();
+        keyDB = app.getKeyDB();
+        bus = app.getBus();
+        discoverManager = app.getDiscoverManager();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_discover, container, false);
+        View view = inflater.inflate(R.layout.fragment_discover, container, false);
+        ButterKnife.bind(view);
+        return view;
     }
 
     @Override
@@ -64,13 +69,14 @@ public class DiscoverFragment extends Fragment {
     }
 
     public void showPodcasts(List<Podcast> results) {
-        DiscoverAdapter adapter = new DiscoverAdapter();
+        DiscoverAdapter adapter = new DiscoverAdapter(bus);
         adapter.setPodcasts(results);
         discoverRecycleView.setAdapter(adapter);
 
     }
 
     public void saveSuccessful() {
+        bus.post(new SwitchToSubscribeEvent());
     }
 
     public void showError(String error) {

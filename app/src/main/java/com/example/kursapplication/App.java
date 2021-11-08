@@ -2,6 +2,7 @@ package com.example.kursapplication;
 
 import android.app.Application;
 import android.preference.PreferenceManager;
+import com.example.kursapplication.api.ErrorConverter;
 import com.example.kursapplication.api.PodcastApi;
 import com.example.kursapplication.screens.discover.DiscoverManager;
 import com.example.kursapplication.screens.login.LoginManager;
@@ -22,6 +23,7 @@ public class App extends Application {
     private String keyDB;
     private Bus bus;
     private DiscoverManager discoverManager;
+    private ErrorConverter errorConverter;
 
     @Override
     public void onCreate() {
@@ -45,10 +47,12 @@ public class App extends Application {
         Retrofit retrofit = builder.build();
         PodcastApi podcastApi = retrofit.create(PodcastApi.class);
         bus = new Bus();
+
+        errorConverter = new ErrorConverter(retrofit);
         userStorage = new UserStorage(PreferenceManager.getDefaultSharedPreferences(this));
-        loginManager = new LoginManager(userStorage, podcastApi, retrofit);
+        loginManager = new LoginManager(userStorage, podcastApi, errorConverter);
         registerManager = new RegisterManager(userStorage, podcastApi, retrofit);
-        discoverManager = new DiscoverManager(podcastApi, bus, userStorage, idDB, keyDB);
+        discoverManager = new DiscoverManager(podcastApi, bus, userStorage, errorConverter, idDB, keyDB);
 
 
     }

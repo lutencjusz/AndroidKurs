@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import com.example.kursapplication.screens.discover.DiscoverFragment;
+import com.example.kursapplication.screens.discover.SwitchToSubscribeEvent;
 import com.example.kursapplication.screens.login.LoginActivity;
 import com.example.kursapplication.screens.subscribed.AddActionEvent;
 import com.example.kursapplication.screens.subscribed.SubscribedFragment;
@@ -135,9 +136,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         goToDiscover();
     }
 
+    @Subscribe
+    public void onSwitchToSubscribe(SwitchToSubscribeEvent event) {
+        goToSubscribed();
+    }
+
+    private void goToSubscribed() {
+        goToItem(R.id.nav_subscribe);
+    }
+
+
     @Override
     public void goToDiscover() {
-        MenuItem item = navigationView.getMenu().findItem(R.id.nav_discover);
+        goToItem(R.id.nav_discover);
+    }
+
+    private void goToItem(int id) {
+        MenuItem item = navigationView.getMenu().findItem(id);
         item.setChecked(true);
         onNavigationItemSelected(item);
     }

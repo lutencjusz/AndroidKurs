@@ -4,28 +4,36 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 import com.example.kursapplication.R;
 import com.example.kursapplication.api.Podcast;
+import com.squareup.otto.Bus;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverViewHolder> {
 
+    private final Bus bus;
     private List<Podcast> podcastList = new ArrayList<>();
+
+    public DiscoverAdapter(Bus bus) {
+
+        this.bus = bus;
+    }
 
     @NonNull
     @Override
     public DiscoverViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        return new DiscoverViewHolder(layoutInflater.inflate(R.layout.item_discover, parent, false));
+        return new DiscoverViewHolder(layoutInflater.inflate(R.layout.item_discover, parent, false), bus);
     }
 
     @Override
@@ -61,14 +69,25 @@ class DiscoverViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.btnAdd)
     ImageButton btnAdd;
 
-    public DiscoverViewHolder(@NonNull View itemView) {
+    private final Bus bus;
+    private Podcast podcast;
+
+    public DiscoverViewHolder(@NonNull View itemView, Bus bus) {
         super(itemView);
+        this.bus = bus;
         ButterKnife.bind(this, itemView);
     }
 
     public void setPodcast(Podcast podcast) {
+        this.podcast = podcast;
         tvPodcastName.setText(podcast.title);
         String episodes = tvPodcastEpisodesCount.getResources().getString(R.string.episodes_count, podcast.numberOfEpisodes);
         tvPodcastEpisodesCount.setText(episodes);
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @OnClick(R.id.btnAdd)
+    public void addPodcast(){
+        bus.post(new AddPodcastEvent(podcast));
     }
 }
