@@ -1,6 +1,7 @@
 package com.example.kursapplication.screens.discover;
 
 import android.util.Log;
+import androidx.annotation.NonNull;
 import com.example.kursapplication.ErrorResponse;
 import com.example.kursapplication.UserStorage;
 import com.example.kursapplication.api.ErrorConverter;
@@ -48,7 +49,7 @@ public class DiscoverManager {
         call = podcastApi.getPodcasts(idBD, keyDB);
         call.enqueue(new Callback<PodcastResponse>() {
             @Override
-            public void onResponse(Call<PodcastResponse> call, Response<PodcastResponse> response) {
+            public void onResponse(@NonNull Call<PodcastResponse> call, @NonNull Response<PodcastResponse> response) {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     for (Podcast podcast : response.body().results) {
@@ -63,7 +64,7 @@ public class DiscoverManager {
             }
 
             @Override
-            public void onFailure(Call<PodcastResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<PodcastResponse> call, @NonNull Throwable t) {
 
             }
         });
@@ -93,7 +94,7 @@ public class DiscoverManager {
         subscriptionCall = podcastApi.postSubscription(subscription, userStorage.getToken(), idDB, keyDB);
         subscriptionCall.enqueue(new Callback<Subscription>() {
             @Override
-            public void onResponse(Call<Subscription> call, Response<Subscription> response) {
+            public void onResponse(@NonNull Call<Subscription> call, @NonNull Response<Subscription> response) {
                 if (response.isSuccessful()) {
                     if (discoverFragment != null) {
                         discoverFragment.saveSuccessful();
@@ -107,7 +108,7 @@ public class DiscoverManager {
             }
 
             @Override
-            public void onFailure(Call<Subscription> call, Throwable t) {
+            public void onFailure(@NonNull Call<Subscription> call, @NonNull Throwable t) {
                 if (discoverFragment != null) {
                     discoverFragment.showError(t.getLocalizedMessage());
                 }

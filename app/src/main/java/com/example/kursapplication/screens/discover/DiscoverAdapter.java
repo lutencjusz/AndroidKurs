@@ -22,7 +22,7 @@ import butterknife.OnClick;
 public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverViewHolder> {
 
     private final Bus bus;
-    private List<Podcast> podcastList = new ArrayList<>();
+    private final List<Podcast> podcastList = new ArrayList<>();
 
     public DiscoverAdapter(Bus bus) {
 

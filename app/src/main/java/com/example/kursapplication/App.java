@@ -23,7 +23,6 @@ public class App extends Application {
     private String keyDB;
     private Bus bus;
     private DiscoverManager discoverManager;
-    private ErrorConverter errorConverter;
 
     @Override
     public void onCreate() {
@@ -48,7 +47,7 @@ public class App extends Application {
         PodcastApi podcastApi = retrofit.create(PodcastApi.class);
         bus = new Bus();
 
-        errorConverter = new ErrorConverter(retrofit);
+        ErrorConverter errorConverter = new ErrorConverter(retrofit);
         userStorage = new UserStorage(PreferenceManager.getDefaultSharedPreferences(this));
         loginManager = new LoginManager(userStorage, podcastApi, errorConverter);
         registerManager = new RegisterManager(userStorage, podcastApi, retrofit);
