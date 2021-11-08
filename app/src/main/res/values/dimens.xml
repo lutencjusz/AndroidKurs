@@ -8,4 +8,5 @@
     <dimen name="logoMarginTop" type="dimen" format="float">61.0dp</dimen>
     <dimen name="login_horizontal_padding">51dp</dimen>
     <dimen name="button_height">48dp</dimen>
+    <dimen name="discover_placeholder">96dp</dimen>
 </resources>

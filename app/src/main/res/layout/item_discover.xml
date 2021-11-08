@@ -6,9 +6,9 @@
 
     <ImageView
         android:id="@+id/ivPodcastCover"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo"/>
+        android:layout_width="@dimen/discover_placeholder"
+        android:layout_height="@dimen/discover_placeholder"
+        tools:src="@drawable/logo"/>
     <TextView
         android:id="@+id/tvPodcastName"
         android:layout_toEndOf="@+id/ivPodcastCover"

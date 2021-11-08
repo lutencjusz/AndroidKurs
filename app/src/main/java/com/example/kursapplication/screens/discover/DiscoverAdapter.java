@@ -83,11 +83,21 @@ class DiscoverViewHolder extends RecyclerView.ViewHolder {
         tvPodcastName.setText(podcast.title);
         String episodes = tvPodcastEpisodesCount.getResources().getString(R.string.episodes_count, podcast.numberOfEpisodes);
         tvPodcastEpisodesCount.setText(episodes);
+        Glide.with(tvPodcastName.getContext())
+                .load(podcast.url)
+                .placeholder(R.drawable.placeholder)
+                .into(ivPodcastCover);
     }
 
     @SuppressLint("NonConstantResourceId")
     @OnClick(R.id.btnAdd)
     public void addPodcast(){
+        bus.post(new AddPodcastEvent(podcast));
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @OnClick(R.id.ivPodcastCover)
+    public void addPodcastIV(){
         bus.post(new AddPodcastEvent(podcast));
     }
 }

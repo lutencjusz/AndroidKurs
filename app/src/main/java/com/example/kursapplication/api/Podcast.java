@@ -6,5 +6,6 @@ public class Podcast {
     public int numberOfEpisodes;
     public String title;
     public String description;
+    public String url;
 
 }
