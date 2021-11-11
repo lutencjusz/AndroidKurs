@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
             edPasswordTextInputLayout.setError(null);
         }
         if (!hasErr) {
-            loginManager.login(email, password, ((App) getApplication()).getIdDB(), ((App) getApplication()).getKeyDB());
+            loginManager.login(email, password);
         }
 
     }

@@ -45,8 +45,8 @@ public class DiscoverManager {
         this.discoverFragment = null;
     }
 
-    public void loadPodcasts(String idBD, String keyDB) {
-        call = podcastApi.getPodcasts(idBD, keyDB);
+    public void loadPodcasts() {
+        call = podcastApi.getPodcasts();
         call.enqueue(new Callback<PodcastResponse>() {
             @Override
             public void onResponse(@NonNull Call<PodcastResponse> call, @NonNull Response<PodcastResponse> response) {
@@ -91,7 +91,7 @@ public class DiscoverManager {
 
         subscription.acl.add(userId, aclJson);
 
-        subscriptionCall = podcastApi.postSubscription(subscription, userStorage.getToken(), idDB, keyDB);
+        subscriptionCall = podcastApi.postSubscription(subscription, userStorage.getToken());
         subscriptionCall.enqueue(new Callback<Subscription>() {
             @Override
             public void onResponse(@NonNull Call<Subscription> call, @NonNull Response<Subscription> response) {

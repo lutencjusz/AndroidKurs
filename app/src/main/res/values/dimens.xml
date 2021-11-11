@@ -9,4 +9,5 @@
     <dimen name="login_horizontal_padding">51dp</dimen>
     <dimen name="button_height">48dp</dimen>
     <dimen name="discover_placeholder">96dp</dimen>
+    <dimen name="logoMarginBottom">30dp</dimen>
 </resources>

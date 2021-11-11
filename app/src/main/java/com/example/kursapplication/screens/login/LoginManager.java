@@ -38,10 +38,10 @@ public class LoginManager {
         this.loginActivity = null;
     }
 
-    public void login(String email, String password, String idDB, String keyDB) {
+    public void login(String email, String password) {
 
         if (loginCall == null) { //zabezpiecznie przed podwójnym logowaniem
-            loginCall = podcastApi.getLogin(email, password, idDB, keyDB);
+            loginCall = podcastApi.getLogin(email, password);
             updateProgress();
             loginCall.enqueue(new Callback<UserResponse>() {
                 @Override

@@ -11,27 +11,18 @@ import retrofit2.http.Query;
 
 public interface PodcastApi {
 
-    @Headers({
-            "X-Parse-Revocable-Session: 1"
-    })
     @GET("login")
-    Call<UserResponse> getLogin(@Query("username") String email, @Query("password") String password, @Header("X-Parse-Application-Id") String id, @Header("X-Parse-REST-API-Key") String key);
+    Call<UserResponse> getLogin(@Query("username") String email, @Query("password") String password);
 
-    @Headers({
-            "X-Parse-Revocable-Session: 1"
-    })
     @POST("users")
-    Call<UserResponse> postRegister(@Body RegisterRequest request, @Header("X-Parse-Application-Id") String id, @Header("X-Parse-REST-API-Key") String key);
+    Call<UserResponse> postRegister(@Body RegisterRequest request);
 
-    @Headers({
-            "X-Parse-Revocable-Session: 1"
-    })
     @GET("classes/Podcast")
-    Call<PodcastResponse> getPodcasts(@Header("X-Parse-Application-Id") String id, @Header("X-Parse-REST-API-Key") String key);
+    Call<PodcastResponse> getPodcasts();
 
-    @Headers({
-            "X-Parse-Revocable-Session: 1"
-    })
     @POST("classes/subscription")
-    Call<Subscription> postSubscription(@Body Subscription subscription, @Header("X-Pars-Session-Token") String token, @Header("X-Parse-Application-Id") String id, @Header("X-Parse-REST-API-Key") String key);
+    Call<Subscription> postSubscription(@Body Subscription subscription, @Header("X-Pars-Session-Token") String token);
+
+    @GET("classes/Podcast")
+    Call<PodcastResponse> getSubscribePodcast(@Query("where") String where, @Header("X-Pars-Session-Token") String token);
 }

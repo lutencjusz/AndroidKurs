@@ -123,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
             edPasswordTextInputLayout.setError(null);
         }
         if (!hasErr) {
-            registerManager.register(firstName, lastName, email, password, ((App) getApplication()).getIdDB(), ((App) getApplication()).getKeyDB());
+            registerManager.register(firstName, lastName, email, password);
         }
     }
 

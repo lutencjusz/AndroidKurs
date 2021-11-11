@@ -25,16 +25,12 @@ public class DiscoverFragment extends Fragment {
     @BindView(R.id.discover_recycleView)
     RecyclerView discoverRecycleView;
     private DiscoverManager discoverManager;
-    private String idDB;
-    private String keyDB;
     private Bus bus;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App app = (App) getActivity().getApplication();
-        idDB = app.getIdDB();
-        keyDB = app.getKeyDB();
         bus = app.getBus();
         discoverManager = app.getDiscoverManager();
     }
@@ -59,7 +55,7 @@ public class DiscoverFragment extends Fragment {
     public void onStart() {
         super.onStart();
         discoverManager.onAttach(this);
-        discoverManager.loadPodcasts(idDB, keyDB);
+        discoverManager.loadPodcasts();
     }
 
     @Override

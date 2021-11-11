@@ -38,7 +38,7 @@ public class RegisterManager {
         this.registerActivity = null;
     }
 
-    public void register(String firstName, String lastName, String email, String password, String idDB, String keyDB) {
+    public void register(String firstName, String lastName, String email, String password) {
 
         final RegisterRequest registerRequest = new RegisterRequest();
 
@@ -49,7 +49,7 @@ public class RegisterManager {
         registerRequest.password = password;
 
         if (userResponseCall == null) {
-            userResponseCall = podcastApi.postRegister(registerRequest, idDB, keyDB);
+            userResponseCall = podcastApi.postRegister(registerRequest);
             updateProgress();
             userResponseCall.enqueue(new Callback<UserResponse>() {
                 @Override

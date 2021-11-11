@@ -2,14 +2,19 @@ package com.example.kursapplication;
 
 import android.app.Application;
 import android.preference.PreferenceManager;
+import androidx.annotation.NonNull;
 import com.example.kursapplication.api.ErrorConverter;
 import com.example.kursapplication.api.PodcastApi;
 import com.example.kursapplication.screens.discover.DiscoverManager;
 import com.example.kursapplication.screens.login.LoginManager;
 import com.example.kursapplication.screens.register.RegisterManager;
 import com.squareup.otto.Bus;
+import java.io.IOException;
 import io.github.cdimascio.dotenv.Dotenv;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -36,7 +41,17 @@ public class App extends Application {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient client = new OkHttpClient.Builder().addNetworkInterceptor(loggingInterceptor).build();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addNetworkInterceptor(chain -> {
+                    Request request = chain.request();
+                    Request newRequest = request.newBuilder()
+                            .addHeader("X-Parse-Revocable-Session", "1")
+                            .addHeader("X-Parse-Application-Id", idDB)
+                            .addHeader("X-Parse-REST-API-Key", keyDB).build();
+                    return chain.proceed(newRequest);
+                })
+                .addNetworkInterceptor(loggingInterceptor)
+                .build();
 
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.baseUrl("https://parseapi.back4app.com/");
