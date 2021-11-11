@@ -15,8 +15,17 @@ import androidx.fragment.app.Fragment;
 import com.example.kursapplication.App;
 import com.example.kursapplication.MainActivity;
 import com.example.kursapplication.R;
+import com.example.kursapplication.api.Podcast;
+import java.util.List;
 
 public class SubscribedFragment extends Fragment {
+
+    private SubscribeManager subscribeManager;
+
+    public void showPodcasts(List<Podcast> results) {
+
+
+    }
 
     public interface Callback {
         void goToDiscover();
@@ -37,9 +46,23 @@ public class SubscribedFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        subscribeManager.onAttach(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        subscribeManager.onStop();
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        subscribeManager = ((App)getActivity().getApplication()).getSubscribeManager();
+        subscribeManager.loadPodcast();
     }
 
     @Nullable

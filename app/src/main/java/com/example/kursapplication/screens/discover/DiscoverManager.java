@@ -24,16 +24,12 @@ public class DiscoverManager {
     private final Bus bus;
     private final UserStorage userStorage;
     private final ErrorConverter errorConverter;
-    private final String idDB;
-    private final String keyDB;
 
-    public DiscoverManager(PodcastApi podcastApi, Bus bus, UserStorage userStorage, ErrorConverter errorConverter, String idDB, String keyDB) {
+    public DiscoverManager(PodcastApi podcastApi, Bus bus, UserStorage userStorage, ErrorConverter errorConverter) {
         this.podcastApi = podcastApi;
         this.bus = bus;
         this.userStorage = userStorage;
         this.errorConverter = errorConverter;
-        this.idDB = idDB;
-        this.keyDB = keyDB;
         bus.register(this);
     }
 
