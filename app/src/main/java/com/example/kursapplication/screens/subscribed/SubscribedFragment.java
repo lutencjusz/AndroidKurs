@@ -12,20 +12,22 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.kursapplication.App;
 import com.example.kursapplication.MainActivity;
 import com.example.kursapplication.R;
 import com.example.kursapplication.api.Podcast;
 import java.util.List;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class SubscribedFragment extends Fragment {
 
     private SubscribeManager subscribeManager;
 
-    public void showPodcasts(List<Podcast> results) {
-
-
-    }
+    @BindView(R.id.subscribedRecycleView)
+    RecyclerView subscribedRecycleView;
 
     public interface Callback {
         void goToDiscover();
@@ -61,14 +63,15 @@ public class SubscribedFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        subscribeManager = ((App)getActivity().getApplication()).getSubscribeManager();
-        subscribeManager.loadPodcast();
+        subscribeManager = ((App) getActivity().getApplication()).getSubscribeManager();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_subscribed, container, false);
+        View view = inflater.inflate(R.layout.fragment_subscribed, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -79,7 +82,7 @@ public class SubscribedFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_add:
                 App app = (App) getActivity().getApplication();
                 app.getBus().post(new AddActionEvent());
@@ -88,5 +91,19 @@ public class SubscribedFragment extends Fragment {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        subscribedRecycleView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        subscribeManager.loadPodcast();
+
+    }
+
+    public void showPodcasts(List<Podcast> results) {
+        SubscribedAdapter subscribedAdapter = new SubscribedAdapter();
+        subscribedAdapter.setPodcasts(results);
+        subscribedRecycleView.setAdapter(subscribedAdapter);
     }
 }
